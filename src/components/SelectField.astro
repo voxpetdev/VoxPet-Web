@@ -1,0 +1,6 @@
+<label class="rounded-full p-2 flex justify-center items-center gap-2 cursor-text shadow-md bg-white">
+    <slot name="icon"/>
+    <select class="w-full outline-none" name={Astro.props.name} id={Astro.props.name}>
+        <slot/>
+    </select>
+</label>

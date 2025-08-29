@@ -2,7 +2,7 @@
 // Components
 import InputField from "@/components/InputField.astro"
 import FormButton from "@components/FormButton.astro"
-import SelectField from "../SelectField.astro"
+import SelectField from "@components/SelectField.astro"
 
 // Icons
 import CheckIcon from '@icons/CheckIcon.astro'
@@ -14,7 +14,7 @@ import DocumentIcon from "@icons/DocumentIcon.astro"
 import PhoneIcon from "@icons/PhoneIcon.astro"
 ---
 <fieldset {... Astro.props}>
-    <h1 class="text-4xl text-purple-500">Formulario de registro</h1>
+    <h1 class="text-4xl font-bold text-purple-500">Formulario de registro</h1>
     <form method="post" class="flex flex-col gap-4">
         <InputField type="text" name="name" placeholder="Nombre">
             <WritingSignIcon slot='icon' class="text-gray-500 pointer-none"/>
@@ -22,7 +22,7 @@ import PhoneIcon from "@icons/PhoneIcon.astro"
         <InputField type="text" name="last_name" placeholder="Apellido">
             <WritingIcon slot='icon' class="text-gray-500 pointer-none"/>
         </InputField>
-        <SelectField type="text" name="documentType" placeholder="Tipo de documento">
+        <SelectField name="documentType">
             <DocumentIcon slot='icon' class="text-gray-500 pointer-none"/>
             <option value="" selected disabled>Selecciona tu tipo de documento</option>
             <option value="cc">CC</option>

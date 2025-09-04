@@ -1,0 +1,110 @@
+<div class="grid grid-cols-1 gap-6">
+  <div
+    class="col-span-1 flex flex-col items-center justify-center bg-gray-100 py-4"
+  >
+    <div class="w-full max-w-md mx-auto">
+      <div
+        class="bg-white shadow-md border border-gray-200 rounded-lg p-6 dark:bg-gray-800 dark:border-gray-700"
+      >
+        <form class="space-y-6" action="#">
+          <img
+            src="/src/assets/logo.svg"
+            alt="Descripción de la imagen"
+            class="w-34 h-auto rounded-lg mx-auto"
+          />
+          <h3 class="text-center -mt-3">
+            <span class="font-black text-5xl text-[#B392B7]">Vox</span>
+            <span class="font-black text-5xl text-[#073F4E]">Pet</span>
+          </h3>
+          <p class="text-sm text-center text-gray-400">
+            Acceda, gestione y centralice la información de las mascotas
+          </p>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Email"
+            required=""
+          />
+
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Contraseña"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            required=""
+          />
+
+          <div class="flex items-start justify-between">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input
+                  id="remember"
+                  aria-describedby="remember"
+                  type="checkbox"
+                  class="bg-gray-50 border border-gray-300 focus:ring-2 h-3.5 w-3.5 rounded dark:bg-gray-200 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-400"
+                  required=""
+                />
+              </div>
+              <div class="text-sm ml-3">
+                <label
+                  for="remember"
+                  class="font-medium text-[#073F4E] dark:text-gray-300"
+                  >Recuérdame
+                </label>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-sm font-light text-secondary-600 hover:underline dark:text-primary-500"
+              >Olvidaste la contraseña?</a
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="w-full text-white bg-[#073F4E] hover:bg-teal-800 focus:ring-4 font-medium rounded-lg text-m px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb"
+            >Iniciar sesión</button
+          >
+        </form>
+        <br />
+
+        <p class="text-sm text-center text-gray-400">O inicia sesión con</p>
+        <hr class="my-4 border-gray-300 dark:border-gray-600" />
+
+        <button
+          type="button"
+          class="flex items-center justify-center gap-2 w-full border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 transition"
+        >
+          <svg
+            class="w-6 h-6"
+            viewBox="0 0 256 262"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid"
+            {...Astro.props}
+            ><path
+              d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+              fill="#4285F4"></path><path
+              d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+              fill="#34A853"></path><path
+              d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
+              fill="#FBBC05"></path><path
+              d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+              fill="#EB4335"></path></svg
+          >
+        </button>
+        <br />
+
+        <div class="text-sm font-light text-gray-500 dark:text-gray-300">
+          No estás registrado? <a
+            href="#"
+            class="font-bold text-[#073F4E] hover:underline dark:text-blue-500"
+            >Crea una cuenta</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,12 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+    --color-primary: #16061B;
+    --color-secondary: #073F4E;
+}
+
+html {
+    font-family: "Comfortaa", sans-serif !important;
+    font-style: normal;
+}

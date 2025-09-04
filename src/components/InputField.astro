@@ -1,0 +1,27 @@
+---
+interface Props {
+  type: astroHTML.JSX.HTMLInputTypeAttribute,
+  name: string,
+  placeholder: string
+}
+
+const { type, name, placeholder } = Astro.props
+---
+
+<label class="rounded-full p-2 flex justify-center items-center gap-2 cursor-text shadow-md bg-white">
+    <slot name="icon"/>
+    <input class="outline-none w-full" type={type} name={name} id={name} placeholder={placeholder}>
+    <slot name="status"/>
+</label>
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+</style>

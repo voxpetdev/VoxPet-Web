@@ -1,7 +1,6 @@
 import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-    console.log(request)
     const { username, password } = await request.json()
 
     const API_BASE_URL = import.meta.env.API_BASE_URL

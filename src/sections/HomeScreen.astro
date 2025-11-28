@@ -1,0 +1,72 @@
+---
+import Calendar from "@/icons/Calendar.astro"
+import NavLink from "@/components/NavLink.astro"
+---
+
+<main class="grid min-h-dvh bg-teal-50">
+        
+        <nav class="bg-zinc-100 rounded-md h-16 justify-center items-center flex gap-8 p-4 shadow-md text-green-950 text-xl">
+            
+          <NavLink link="/home">Inicio</NavLink>
+          <NavLink link="/home">Citas</NavLink>
+          <NavLink link="/home">Historia Clinica</NavLink>
+          <NavLink link="/home">Macotas</NavLink>
+          <NavLink link="/home">Alertas</NavLink>
+          <NavLink link="/home">Perfil</NavLink>     
+        </nav>
+        
+
+        <section class="flex flex-col items-center p-6">
+            <h1 class="text-green-800 text-5xl">Bienvenido a <b>VoxPet</b></h1>
+            <div class="w-full h-150 flex justify-center">
+                <img src="/src/assets/home.png" alt="" class="w-auto h-auto rounded-2xl mt-10">
+            </div>
+            <h2 class="text-green-800 text-2xl mt-5 ">El cuidado de tu mascota, en un solo lugar</h2>
+
+            <button class="bg-orange-100 p-5 mt-5 rounded-2xl shadow-sm border border-gray-200 w-[700px]">
+              <div class="flex items-center gap-3 ">
+                <div class="text-gray-600">
+                  <Calendar class="w-15 h-15" />
+                </div>
+                <div class="">
+                  <p class="font-extrabold text-green-900 text-3xl">Próxima Cita</p>
+                  <p class="text-xl">Luna, Viernes 3:00pm</p>
+                </div>
+              </div>
+            </button>
+            
+
+            <button class="bg-emerald-50 p-5 mt-6 rounded-2xl shadow-sm border border-gray-200 w-[700px] hover:bg-green-200 transition-colors ">
+                <div class="flex items-center gap-3 ">
+                <div class="text-gray-600">
+                  <Calendar class="w-15 h-15" />
+                </div>
+                <div class="">
+                  <p class="font-extrabold text-green-900 text-3xl">Pedir Cita</p>
+              </div>
+            </div>
+            </button>
+           
+            <button class="bg-emerald-50 p-5 mt-6 rounded-2xl shadow-sm border border-gray-200 w-[700px] hover:bg-green-200 transition-colors">
+                <div class="flex items-center gap-3 ">
+                  <div class="text-gray-600">
+                    <Calendar class="w-15 h-15" />
+                  </div>
+                  <div class="">
+                    <p class="font-extrabold text-green-900 text-3xl">Ver Historias</p>
+                  </div>
+                </div>
+            </button>
+            
+
+            <div class="mt-7 text-lg">
+               <p>Tip: Un paseo al día mantiene feliz a tu mascota</p>
+            </div>
+        </section>
+</main>
+
+<footer>
+    <div class="bg-green-900 text-white text-center p-4">
+        <p>&copy; 2024 VoxPet. Todos los derechos reservados.</p>
+    </div>
+</footer>

@@ -1,0 +1,7 @@
+---
+interface Props{
+    link:string
+}
+const {link}= Astro.props
+---
+<a href={link} class="px-4 cursor-pointer hover:before:scale-x-100 relative px-4 cursor-pointer before:content-[''] before:absolute before:left-0 before:-bottom-1 before:w-full before:h-[2px] before:bg-green-900 before:scale-x-0 before:origin-left before:transition-transform before:duration-300 hover:before:scale-x-100"><slot/></a>

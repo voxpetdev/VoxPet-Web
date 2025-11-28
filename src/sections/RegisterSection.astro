@@ -1,54 +1,81 @@
 ---
 // Components
-import InputField from "@/components/InputField.astro"
 import FormButton from "@components/FormButton.astro"
 import SelectField from "@components/SelectField.astro"
+import Input from "@/components/Input.astro"
 
 // Icons
 import CheckIcon from '@icons/CheckIcon.astro'
-import LockIcon from "@/icons/LockIcon.astro"
-import MailIcon from "@/icons/MailIcon.astro"
-import WritingIcon from "@icons/WritingIcon.astro"
-import WritingSignIcon from "@icons/WritingSignIcon.astro"
-import DocumentIcon from "@icons/DocumentIcon.astro"
-import PhoneIcon from "@icons/PhoneIcon.astro"
 ---
 <section class="grid place-content-center min-h-dvh">
     <fieldset {... Astro.props}>
         <h1 class="text-4xl font-bold text-purple-500">Formulario de registro</h1>
-        <form method="post" class="flex flex-col gap-4">
-            <InputField type="text" name="name" placeholder="Nombre">
-                <WritingSignIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="text" name="last_name" placeholder="Apellido">
-                <WritingIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
+        <form id="registerform" method="post" class="flex flex-col gap-4">
+            <Input id="name" type="text" placeholder="Nombre"/>
+            <Input id="last_name" type="text" placeholder="Apellido"/>
             <SelectField name="documentType">
-                <DocumentIcon slot='icon' class="text-gray-500 pointer-none"/>
                 <option value="" selected disabled>Selecciona tu tipo de documento</option>
                 <option value="cc">CC</option>
                 <option value="ti">TI</option>
                 <option value="pt">PPT</option>
             </SelectField>
-            <InputField type="number" name="document" placeholder="Documento">
-                <DocumentIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="text" name="phone" placeholder="Telefono">
-                <PhoneIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="email" name="email" placeholder="Email">
-                <MailIcon slot='icon' class="text-gray-500 pointer-none"/>
-                <CheckIcon slot='status' class="text-green-500"/>
-            </InputField>
-            <InputField type="password" name="password" placeholder="Contraseña">
-                <LockIcon slot="icon" class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="password" name="confirmPassword" placeholder="Confirmar contraseña">
-                <LockIcon slot="icon" class="text-gray-500 pointer-none"/>
-            </InputField>
+            <Input id="document" type="number" placeholder="Documento"/>
+            <Input id="phone" type="text" placeholder="Telefono"/>
+            <Input id="email" type="email" placeholder="Email"/>
+            <Input id="password" type="password" placeholder="Contraseña"/>
+            <Input id="confirmPassword" type="password" placeholder="Confirmar contraseña"/>
             <FormButton>
                 Registrarse
             </FormButton>
         </form>
     </fieldset>
 </section>
+
+<script>
+    import Swal from "sweetalert2"
+    const form = document.getElementById("registerform") as HTMLFormElement
+
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        const data = {
+            name: form.name.value,
+            last_name: form.last_name.value,
+            email: form.email.value,
+            phone: form.phone.value,
+            password: form.password.value
+        }
+
+        try {
+            const res = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+
+            if(res.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro exitoso!',
+                    text: 'Continua con la verificación de tu cuenta por medio de tu correo electronico.',
+                    theme: 'auto'
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error...',
+                    text: 'El nombre de usuario o contraseña no coinciden.',
+                    theme: 'auto'
+                })
+            }
+        } catch (error) {
+            console.error(error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor.',
+                theme: 'auto'
+            })
+        }
+    })
+</script>

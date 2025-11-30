@@ -6,8 +6,9 @@ import Input from "@/components/Input.astro"
 import LOGO from "@/assets/LOGO.svg"
 
 // Icons
-import CheckIcon from '@icons/CheckIcon.astro'
+import BackIcon from "@/icons/BackIcon.astro"
 ---
+<a href="/" class="flex gap-1 items-center m-4 float-left absolute font-bold text-[#073F4E] hover:underline dark:text-blue-500" title="Ir al inicio"><BackIcon/> Volver</a>
 <section class="grid place-content-center min-h-dvh md:p-6 overflow-x-hidden">
     <h2 class="font-bold text-4xl mb-4 hidden lg:block">Registrate</h2>
     <form id="registerform" method="post" class="flex flex-col-reverse lg:flex-row gap-6 md:bg-white shadow-md md:border border-gray-200 rounded-lg md:dark:bg-gray-800 dark:border-gray-700 p-2 md:p-6">
@@ -70,12 +71,45 @@ import CheckIcon from '@icons/CheckIcon.astro'
     </form>
 </section>
 
+<style is:inline>
+  .loading-icon {
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
 <script>
     import Swal from "sweetalert2"
     const form = document.getElementById("registerform") as HTMLFormElement
+    const submitButton = document.getElementById("submit") as HTMLButtonElement
+
+  const loadingSVG = `
+    <svg
+        class="loading-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 3a9 9 0 1 0 9 9"></path>
+    </svg>
+    `
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault()
+
+        submitButton.disabled = true
+        submitButton.innerHTML = loadingSVG
 
         const data = {
             name: form.name.value,
@@ -98,7 +132,7 @@ import CheckIcon from '@icons/CheckIcon.astro'
                     title: 'Registro exitoso!',
                     text: 'Continua con la verificación de tu cuenta por medio de tu correo electronico.',
                     theme: 'auto'
-                })
+                }).then(() => window.location.href = "/")
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -115,6 +149,9 @@ import CheckIcon from '@icons/CheckIcon.astro'
                 text: 'No se pudo conectar con el servidor.',
                 theme: 'auto'
             })
+        }   finally {
+            submitButton.disabled = false
+            submitButton.innerHTML = "Iniciar Sesión"
         }
     })
 </script>

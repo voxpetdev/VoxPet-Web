@@ -1,3 +1,11 @@
-<button class="bg-purple-700 rounded-full p-2 text-white font-bold cursor-pointer hover:bg-purple-600">
+---
+interface Props {
+    id: string
+}
+
+const { id } = Astro.props
+---
+
+<button type="submit" id={id} class="w-full flex justify-center text-white bg-primary hover:bg-teal-800 focus:ring-4 font-medium rounded-lg text-m px-5 py-2.5 dark:bg-teal-800 dark:hover:bg-primary dark:focus:ring-teal-800 disabled:bg-primary/80 disabled:cursor-not-allowed disabled:hover:bg-primary/80 transition-all cursor-pointer">
     <slot/>
 </button>

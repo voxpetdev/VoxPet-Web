@@ -1,54 +1,157 @@
 ---
 // Components
-import InputField from "@/components/InputField.astro"
 import FormButton from "@components/FormButton.astro"
 import SelectField from "@components/SelectField.astro"
+import Input from "@/components/Input.astro"
+import LOGO from "@/assets/LOGO.svg"
 
 // Icons
-import CheckIcon from '@icons/CheckIcon.astro'
-import LockIcon from "@/icons/LockIcon.astro"
-import MailIcon from "@/icons/MailIcon.astro"
-import WritingIcon from "@icons/WritingIcon.astro"
-import WritingSignIcon from "@icons/WritingSignIcon.astro"
-import DocumentIcon from "@icons/DocumentIcon.astro"
-import PhoneIcon from "@icons/PhoneIcon.astro"
+import BackIcon from "@/icons/BackIcon.astro"
 ---
-<section class="grid place-content-center min-h-dvh">
-    <fieldset {... Astro.props}>
-        <h1 class="text-4xl font-bold text-purple-500">Formulario de registro</h1>
-        <form method="post" class="flex flex-col gap-4">
-            <InputField type="text" name="name" placeholder="Nombre">
-                <WritingSignIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="text" name="last_name" placeholder="Apellido">
-                <WritingIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
-            <SelectField name="documentType">
-                <DocumentIcon slot='icon' class="text-gray-500 pointer-none"/>
-                <option value="" selected disabled>Selecciona tu tipo de documento</option>
-                <option value="cc">CC</option>
-                <option value="ti">TI</option>
-                <option value="pt">PPT</option>
-            </SelectField>
-            <InputField type="number" name="document" placeholder="Documento">
-                <DocumentIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="text" name="phone" placeholder="Telefono">
-                <PhoneIcon slot='icon' class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="email" name="email" placeholder="Email">
-                <MailIcon slot='icon' class="text-gray-500 pointer-none"/>
-                <CheckIcon slot='status' class="text-green-500"/>
-            </InputField>
-            <InputField type="password" name="password" placeholder="Contraseña">
-                <LockIcon slot="icon" class="text-gray-500 pointer-none"/>
-            </InputField>
-            <InputField type="password" name="confirmPassword" placeholder="Confirmar contraseña">
-                <LockIcon slot="icon" class="text-gray-500 pointer-none"/>
-            </InputField>
-            <FormButton>
+<a href="/" class="flex gap-1 items-center m-4 float-left absolute font-bold text-[#073F4E] hover:underline dark:text-blue-500" title="Ir al inicio"><BackIcon/> Volver</a>
+<section class="grid place-content-center min-h-dvh md:p-6 overflow-x-hidden">
+    <h2 class="font-bold text-4xl mb-4 hidden lg:block">Registrate</h2>
+    <form id="registerform" method="post" class="flex flex-col-reverse lg:flex-row gap-6 md:bg-white shadow-md md:border border-gray-200 rounded-lg md:dark:bg-gray-800 dark:border-gray-700 p-2 md:p-6">
+        <div class="flex flex-col gap-4 min-w-0 md:min-w-[448px]">
+            <h1 class="flex w-fit lg:hidden text-2xl">Registro</h1>
+            <Input id="name" type="text" placeholder="Nombre"/>
+            <Input id="last_name" type="text" placeholder="Apellido"/>
+            <div class="flex gap-2">
+                <SelectField name="documentType">
+                    <option value="" selected disabled>tipo</option>
+                    <option value="cc">CC</option>
+                    <option value="ti">TI</option>
+                    <option value="pt">PPT</option>
+                </SelectField>
+                <Input id="document" type="number" placeholder="Documento"/>
+            </div>
+            <Input id="phone" type="text" placeholder="Telefono"/>
+            <Input id="email" type="email" placeholder="Email"/>
+            <Input id="password" type="password" placeholder="Contraseña"/>
+            <Input id="confirmPassword" type="password" placeholder="Confirmar contraseña"/>
+            <FormButton id="submit">
                 Registrarse
             </FormButton>
-        </form>
-    </fieldset>
+        </div>
+
+        <div class="flex flex-col gap-6 min-w-0 md:min-w-[448px]">
+            <img src={LOGO.src} alt="Descripción de la imagen" class="max-w-32 h-auto mx-auto"/>
+            <h3 class="text-center -mt-3">
+                <span class="font-black text-5xl text-[#B392B7]">Vox</span>
+                <span class="font-black text-5xl text-primary">Pet</span>
+            </h3>
+            <p class="text-sm text-center text-gray-400">
+                Crea tu perfil acceder al sistema
+            </p>
+            <p class="text-sm text-center text-gray-400">O ingresa con</p>
+            
+            <button type="button" class="flex items-center justify-center gap-2 w-full border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
+                <svg
+                    {...Astro.props}
+                    width="24"
+                    height="24"
+                    viewBox="0 0 256 262"
+                    xmlns="http://www.w3.org/2000/svg" 
+                    preserveAspectRatio="xMidYMid">
+                    <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"></path>
+                    <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"></path>
+                    <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"></path>
+                    <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335"></path>
+                </svg>
+            </button>
+            
+            <article class="flex gap-2 text-sm font-light text-gray-500 dark:text-gray-300">
+                <p>Ya estas registrado?</p>
+                <a href="/" class="font-bold text-[#073F4E] hover:underline dark:text-blue-500">
+                    Inicia sesión
+                </a>
+            </article>
+            <hr class="-my-2 block lg:hidden border-gray-300 dark:border-gray-600" />
+        </div>
+    </form>
 </section>
+
+<style is:inline>
+  .loading-icon {
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+    import Swal from "sweetalert2"
+    const form = document.getElementById("registerform") as HTMLFormElement
+    const submitButton = document.getElementById("submit") as HTMLButtonElement
+
+  const loadingSVG = `
+    <svg
+        class="loading-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 3a9 9 0 1 0 9 9"></path>
+    </svg>
+    `
+
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        submitButton.disabled = true
+        submitButton.innerHTML = loadingSVG
+
+        const data = {
+            name: form.name.value,
+            last_name: form.last_name.value,
+            email: form.email.value,
+            phone: form.phone.value,
+            password: form.password.value
+        }
+
+        try {
+            const res = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+
+            if(res.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro exitoso!',
+                    text: 'Continua con la verificación de tu cuenta por medio de tu correo electronico.',
+                    theme: 'auto'
+                }).then(() => window.location.href = "/")
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error...',
+                    text: 'El nombre de usuario o contraseña no coinciden.',
+                    theme: 'auto'
+                })
+            }
+        } catch (error) {
+            console.error(error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor.',
+                theme: 'auto'
+            })
+        }   finally {
+            submitButton.disabled = false
+            submitButton.innerHTML = "Iniciar Sesión"
+        }
+    })
+</script>

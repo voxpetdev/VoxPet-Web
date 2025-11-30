@@ -1,5 +1,7 @@
 ---
 import LOGO from "@/assets/LOGO.svg";
+import Input from "@/components/Input.astro";
+import FormButton from "@/components/FormButton.astro";
 ---
 
 <section class="grid place-content-center min-h-dvh">
@@ -7,28 +9,14 @@ import LOGO from "@/assets/LOGO.svg";
     <img src={LOGO.src} alt="Descripción de la imagen" class="w-34 h-auto rounded-lg mx-auto"/>
     <h3 class="text-center -mt-3">
       <span class="font-black text-5xl text-[#B392B7]">Vox</span>
-      <span class="font-black text-5xl text-[#073F4E]">Pet</span>
+      <span class="font-black text-5xl text-primary">Pet</span>
     </h3>
     <p class="text-sm text-center text-gray-400">
       Acceda, gestione y centralice la información de sus mascotas
     </p>
-    <input
-      type="email"
-      name="email"
-      id="email"
-      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-      placeholder="Email"
-      required
-    />
+    <Input type="email" id="email" placeholder="Email" required />
 
-    <input
-      type="password"
-      name="password"
-      id="password"
-      placeholder="Contraseña"
-      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-      required
-    />
+    <Input type="password" id="password" placeholder="Contraseña" required />
 
     <article class="flex justify-between">
       <div>
@@ -47,11 +35,11 @@ import LOGO from "@/assets/LOGO.svg";
       </a>
     </article>
 
-    <button type="submit" id="submit" class="w-full flex justify-center text-white bg-[#073F4E] hover:bg-teal-800 focus:ring-4 font-medium rounded-lg text-m px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-blue-900 disabled:cursor-not-allowed disabled:hover:bg-blue-900 cursor-pointer">
+    <FormButton id="submit">
       Iniciar sesión
-    </button>
+    </FormButton>
 
-    <p class="text-sm text-center text-gray-400">O inicia sesión con</p>
+    <p class="text-sm text-center text-gray-400">O ingresa con</p>
     <hr class="-my-2 border-gray-300 dark:border-gray-600" />
 
     <button type="button" class="flex items-center justify-center gap-2 w-full border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">

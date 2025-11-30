@@ -1,6 +1,7 @@
 ---
 import LOGO from "@/assets/LOGO.svg";
 import Input from "@/components/Input.astro";
+import FormButton from "@/components/FormButton.astro";
 ---
 
 <section class="grid place-content-center min-h-dvh">
@@ -34,11 +35,11 @@ import Input from "@/components/Input.astro";
       </a>
     </article>
 
-    <button type="submit" id="submit" class="w-full flex justify-center text-white bg-primary hover:bg-teal-800 focus:ring-4 font-medium rounded-lg text-m px-5 py-2.5 dark:bg-teal-800 dark:hover:bg-primary dark:focus:ring-blue-800 disabled:bg-blue-900 disabled:cursor-not-allowed disabled:hover:bg-blue-900 transition-all cursor-pointer">
+    <FormButton id="submit">
       Iniciar sesión
-    </button>
+    </FormButton>
 
-    <p class="text-sm text-center text-gray-400">O inicia sesión con</p>
+    <p class="text-sm text-center text-gray-400">O ingresa con</p>
     <hr class="-my-2 border-gray-300 dark:border-gray-600" />
 
     <button type="button" class="flex items-center justify-center gap-2 w-full border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">

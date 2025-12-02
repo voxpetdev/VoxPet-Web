@@ -5,7 +5,8 @@ import Paw from "@/icons/Paw.astro";
 import Calendar2 from "@/icons/Calendar2.astro";
 ---
 
-<nav
+<body class="min-h-screen flex flex-col">
+  <nav
   class="relative bg-white/80 backdrop-blur-xl h-16 px-10 flex items-center shadow-md rounded-b-xl"
 >
   <div
@@ -79,15 +80,7 @@ import Calendar2 from "@/icons/Calendar2.astro";
   </div>
 </nav>
 
-<div class="container"></div>
-
-<section class="flex flex-col items-center mt-6 p-6 w-full">
-  <h3 class="text-center text-[#073f4e] text-3xl">
-    Bienvenido a
-    <span class="font-black text-4xl text-[#B392B7]">Vox</span>
-    <span class="font-black text-4xl text-primary">Pet</span>
-  </h3>
-
+<section class="flex flex-col items-center p-6 w-full">
   <section class="container">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="col-span-1 md:col-span-3">
@@ -143,8 +136,11 @@ import Calendar2 from "@/icons/Calendar2.astro";
     </div>
   </section>
 </section>
+
 <footer>
-  <div class="bg-[#073f4e] text-white text-center p-4">
+  <div class="bg-[#073f4e] text-white text-center p-4 mt-6">
     <p>&copy; 2025 VoxPet. Todos los derechos reservados.</p>
   </div>
 </footer>
+  
+</body>

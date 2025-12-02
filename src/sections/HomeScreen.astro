@@ -1,6 +1,7 @@
 ---
 import Calendar from "@/icons/Calendar.astro"
 import NavLink from "@/components/NavLink.astro"
+import Home from "@/assets/home.png"
 ---
 
 <main class="grid min-h-dvh bg-teal-50">
@@ -19,7 +20,7 @@ import NavLink from "@/components/NavLink.astro"
         <section class="flex flex-col items-center p-6">
             <h1 class="text-green-800 text-5xl">Bienvenido a <b>VoxPet</b></h1>
             <div class="w-full h-150 flex justify-center">
-                <img src="/src/assets/home.png" alt="" class="w-auto h-auto rounded-2xl mt-10">
+                <img src={Home.src} alt="" class="w-auto h-auto rounded-2xl mt-10">
             </div>
             <h2 class="text-green-800 text-2xl mt-5 ">El cuidado de tu mascota, en un solo lugar</h2>
 

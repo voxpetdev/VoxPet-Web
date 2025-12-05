@@ -1,146 +1,39 @@
 ---
 import Calendar from "@/icons/Calendar.astro";
-import NavLink from "@/components/NavLink.astro";
 import Paw from "@/icons/Paw.astro";
 import Calendar2 from "@/icons/Calendar2.astro";
+import Banner from "@/assets/home.png"
+import Image from "astro/components/Image.astro";
 ---
-
-<body class="min-h-screen flex flex-col">
-  <nav
-  class="relative bg-white/80 backdrop-blur-xl h-16 px-10 flex items-center shadow-md rounded-b-xl"
->
-  <div
-    class="absolute left-1/2 -translate-x-1/2 flex items-center gap-8 text-black text-lg font-semibold"
-  >
-    <NavLink link="/home">Inicio</NavLink>
-    <NavLink link="/mascotas">Mis mascotas</NavLink>
-    <NavLink link="/citas">Citas</NavLink>
-  </div>
-
-  <div class="ml-auto flex items-center gap-6">
-    <button
-      class="relative w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition cursor-pointer hover:shadow-lg"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path
-          d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"
-        ></path>
-        <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
-      </svg>
-
-      <span class="absolute top-2 right-2 w-3 h-3 bg-orange-500 rounded-full"
-      ></span>
+<main class="max-w-7xl mx-auto flex flex-col justify-center gap-4">
+  <figure>
+    <Image src={Banner} alt="Banner" class="h-auto rounded-2xl" />
+  </figure>
+  <section class="flex gap-4">
+    <button class="flex items-center gap-6 bg-orange-100 p-6 rounded-2xl shadow-md border border-orange-200 w-full hover:bg-orange-200 hover:shadow-lg transition-all duration-200 cursor-pointer">
+        <figure class="text-orange-600 p-3 bg-white rounded-2xl shadow-md">
+          <Calendar2 class="h-8 w-8" />
+        </figure>
+        <div>
+          <p class="font-extrabold text-green-900 text-2xl">Próxima Cita</p>
+          <p class="text-lg text-gray-700">Luna, Viernes 3:00pm</p>
+        </div>
     </button>
-
-    <div
-      class="flex items-center gap-3 cursor-pointer hover:shadow-lg rounded-full p-2 transition border border-gray-200"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-      </svg>
-
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M6 9l6 6l6 -6"></path>
-      </svg>
-    </div>
-  </div>
-</nav>
-
-<section class="flex flex-col items-center p-6 w-full">
-  <section class="container">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="col-span-1 md:col-span-3">
-        <img
-          src="/src/assets/home.png"
-          alt=""
-          class="h-auto rounded-2xl mt-10"
-        />
+    <button class="flex items-center gap-6 bg-emerald-100 p-6 rounded-2xl shadow-md border border-emerald-200 w-full hover:bg-emerald-200 hover:shadow-lg transition-all duration-200 cursor-pointer">
+      <figure class="text-emerald-600 bg-white p-3 rounded-xl shadow-sm">
+        <Calendar class="w-8 h-8" />
+      </figure>
+      <div>
+        <p class="font-extrabold text-green-900 text-2xl">Pedir Cita</p>
       </div>
-      <div class="col-span-1">
-        <button
-          class="bg-orange-100 p-6 rounded-2xl shadow-md border border-orange-200 w-full w-full hover:bg-orange-200 hover:shadow-lg transition-all duration-200"
-        >
-          <div class="flex items-center gap-4">
-            <div class="text-orange-600 bg-white p-3 rounded-xl shadow-sm">
-              <Calendar2 class="w-8 h-8" />
-            </div>
-            <div>
-              <p class="font-extrabold text-green-900 text-2xl">Próxima Cita</p>
-              <p class="text-lg text-gray-700">Luna, Viernes 3:00pm</p>
-            </div>
-          </div>
-        </button>
+    </button>
+    <button class="flex items-center gap-6 bg-emerald-100 p-6 rounded-2xl shadow-md border border-emerald-200 w-full hover:bg-emerald-200 hover:shadow-lg transition-all duration-200 cursor-pointer">
+      <figure class="text-emerald-600 bg-white p-3 rounded-xl shadow-sm">
+        <Paw class="w-8 h-8" />
+      </figure>
+      <div>
+        <p class="font-extrabold text-green-900 text-2xl">Mis mascotas</p>
       </div>
-      <div class="col-span-1">
-        <button
-          class="bg-emerald-100 p-6 rounded-2xl shadow-md border border-emerald-200 w-full w-full hover:bg-emerald-200 hover:shadow-lg transition-all duration-200"
-        >
-          <div class="flex items-center gap-4">
-            <div class="text-emerald-600 bg-white p-3 rounded-xl shadow-sm">
-              <Calendar class="w-8 h-8" />
-            </div>
-            <div>
-              <p class="font-extrabold text-green-900 text-2xl">Pedir Cita</p>
-            </div>
-          </div>
-        </button>
-      </div>
-      <div class="col-span-1">
-        <button
-          class="bg-emerald-100 p-6 rounded-2xl shadow-md border border-emerald-200 w-full w-full hover:bg-emerald-200 hover:shadow-lg transition-all duration-200"
-        >
-          <div class="flex items-center gap-4">
-            <div class="text-emerald-600 bg-white p-3 rounded-xl shadow-sm">
-              <Paw class="w-8 h-8" />
-            </div>
-            <div>
-              <p class="font-extrabold text-green-900 text-2xl">Mis mascotas</p>
-            </div>
-          </div>
-        </button>
-      </div>
-    </div>
+    </button>
   </section>
-</section>
-
-<footer>
-  <div class="bg-[#073f4e] text-white text-center p-4 mt-6">
-    <p>&copy; 2025 VoxPet. Todos los derechos reservados.</p>
-  </div>
-</footer>
-  
-</body>
+</main>

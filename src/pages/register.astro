@@ -1,6 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import RegisterSection from "@/sections/RegisterSection.astro"
+
+const cookie = Astro.cookies.get("access_token")?.value
+if (cookie) return Astro.redirect('/home')
 ---
 
 <Layout title="VoxPet - Registro">

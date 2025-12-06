@@ -1,12 +1,85 @@
 ---
 import UserIcon from "@/icons/UserIcon.astro"
 import ArrowDownIcon from "@/icons/ArrowDownIcon.astro"
+import { getUserFromJWT } from "@/utils/getUserFromJWT"
+
+const token = Astro.cookies.get("access_token")?.value
+const user = getUserFromJWT(token)
 ---
 
-<button class="flex items-center cursor-pointer gap-3 rounded-full p-2 text-gray-700 dark:text-gray-400 font-bold">
+<button id="user-options" class="flex items-center cursor-pointer gap-3 rounded-full p-2 text-gray-700 dark:text-gray-400 font-bold" popovertarget="user-menu" style="anchor-name: --anchor-1;">
     <figure class="overflow-hidden rounded-full h-11 w-11 border">
         <UserIcon class="w-full h-full" />
     </figure>
-    <span>Mateo</span>
-    <ArrowDownIcon />
+    <span>{user?.name}</span>
+    <ArrowDownIcon id="arrow-icon" class="transition-transform transform"/>
 </button>
+<ul class="dropdown menu bg-base-200 rounded-box w-52 p-2 shadow-sm" popover id="user-menu" style="position-anchor:--anchor-1">
+    <li><button id="profile">Editar perfil</button></li>
+    <li><button id="logout">Cerrar sesión</button></li>
+</ul>
+
+<script>
+    import Swal from "sweetalert2"
+
+    const logoutButton = document.getElementById("logout")
+    const profileButton = document.getElementById("profile")
+    const userOptionsButton = document.getElementById("user-options")
+    const userMenu = document.getElementById("user-menu")
+    const arrowIcon = document.getElementById("arrow-icon")
+
+    function rotateArrow() {
+        arrowIcon?.classList.toggle("rotate-180")
+    }
+
+    userOptionsButton?.addEventListener("click", (e) => {
+        rotateArrow()
+        e.stopPropagation()
+    })
+
+    userMenu?.addEventListener('blur', () => {
+        setTimeout(() => {
+            arrowIcon?.classList.remove('rotate-180')
+        }, 150)
+    })
+
+    document.addEventListener("click", (e) => {
+        if (e.target !== userMenu) {
+            arrowIcon?.classList.remove('rotate-180')
+        }
+    })
+
+    logoutButton?.addEventListener("click", async () => {
+        Swal.fire({
+            icon: "warning",
+            title: "Estas a punto de cerrar sesión",
+            theme: "auto",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            cancelButtonColor: "red"
+        }).then( async (result) => {
+            if (result.isConfirmed) {
+                const res = await fetch("/api/logout", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                })
+
+                if (res.ok) return window.location.href = "/"
+
+                Swal.fire({
+                    icon: "error",
+                    title: "error",
+                    text: "Error interno del servidor"
+                })
+            }
+        })
+    })
+
+    profileButton?.addEventListener("click", () => {
+        Swal.fire({
+            icon: "info",
+            title: "No implementado aún",
+            theme: "auto"
+        })
+    })
+</script>

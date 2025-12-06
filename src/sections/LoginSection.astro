@@ -119,12 +119,7 @@ import FormButton from "@/components/FormButton.astro";
         })
 
         if(res.ok) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Bienvenido',
-            text: 'Inicio de sesión exitoso!',
-            theme: 'auto'
-          })
+          window.location.href = "/home"
         } else {
           Swal.fire({
             icon: 'error',

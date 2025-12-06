@@ -2,7 +2,28 @@
 // Aqui se ponen los atributos que va a llevar el componente
 interface Props {
     id: string,
-    type: HTMLInputElement['type'],
+    type: 'button'
+		| 'checkbox'
+		| 'color'
+		| 'date'
+		| 'datetime-local'
+		| 'email'
+		| 'file'
+		| 'hidden'
+		| 'image'
+		| 'month'
+		| 'number'
+		| 'password'
+		| 'radio'
+		| 'range'
+		| 'reset'
+		| 'search'
+		| 'submit'
+		| 'tel'
+		| 'text'
+		| 'time'
+		| 'url'
+		| 'week',
     placeholder: string,
     required?: boolean
 }
@@ -11,4 +32,11 @@ interface Props {
 const { id, type, placeholder, required } = Astro.props
 ---
 
-<input type={type} name={id} id={id} class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder={placeholder} {required}/>
+<input 
+    type={type} 
+    name={id} 
+    id={id} 
+    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" 
+    placeholder={placeholder} 
+    {required}
+/>

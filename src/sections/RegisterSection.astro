@@ -14,7 +14,7 @@ import BackIcon from "@/icons/BackIcon.astro"
     <form id="registerform" method="post" class="flex flex-col-reverse lg:flex-row gap-6 md:bg-white shadow-md md:border border-gray-200 rounded-lg md:dark:bg-gray-800 dark:border-gray-700 p-2 md:p-6">
         <div class="flex flex-col gap-4 min-w-0 md:min-w-[448px]">
             <h1 class="flex w-fit lg:hidden text-2xl">Registro</h1>
-            <Input id="name" type="text" placeholder="Nombre"/>
+            <Input id="username" type="text" placeholder="Nombre"/>
             <Input id="last_name" type="text" placeholder="Apellido"/>
             <div class="flex gap-2">
                 <SelectField name="documentType">
@@ -112,7 +112,7 @@ import BackIcon from "@/icons/BackIcon.astro"
         submitButton.innerHTML = loadingSVG
 
         const data = {
-            name: form.name.value,
+            name: form.username.value,
             last_name: form.last_name.value,
             email: form.email.value,
             phone: form.phone.value,
@@ -134,10 +134,11 @@ import BackIcon from "@/icons/BackIcon.astro"
                     theme: 'auto'
                 }).then(() => window.location.href = "/")
             } else {
+                const resJson = await res.json()
                 Swal.fire({
                     icon: 'error',
                     title: 'Error...',
-                    text: 'El nombre de usuario o contraseña no coinciden.',
+                    text: resJson.message,
                     theme: 'auto'
                 })
             }
@@ -151,7 +152,7 @@ import BackIcon from "@/icons/BackIcon.astro"
             })
         }   finally {
             submitButton.disabled = false
-            submitButton.innerHTML = "Iniciar Sesión"
+            submitButton.innerHTML = "Registrarse"
         }
     })
 </script>

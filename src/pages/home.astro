@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Principal-layout.astro"
 import HomeScreenSection from "@/sections/HomeScreen.astro"
+
+const cookie = Astro.cookies.get("access_token")?.value
+if (!cookie) return Astro.redirect('/')
 ---
 
 <Layout title="VoxPet - Inicio">

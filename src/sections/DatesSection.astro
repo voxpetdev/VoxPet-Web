@@ -1,0 +1,199 @@
+---
+import Input from "@/components/Input.astro"
+import FormButton from "@/components/FormButton.astro"
+import SelectField from "@/components/SelectField.astro"
+import { getUserFromJWT } from "@/utils/getUserFromJWT"
+
+interface Pet {
+    users_pets: {
+        users_petsID: number,
+        userID: string,
+        petID: number,
+        status: string,
+        createdAt: number,
+        updatedAt: number
+    },
+    pet: {
+        petID: number,
+        name: string,
+        last_name: string,
+        weight: number,
+        bithday: string,
+        breedID: number,
+        genre: string,
+        color: string,
+        status: string,
+        createdAt: number,
+        updatedAt: number
+    }
+}
+
+interface Appointment {
+    appointmentID: number,
+    date: string,
+    consultation: string,
+    place: string,
+    observations: string,
+    petID: number,
+    userID: string,
+    status: string,
+    createdAt: number,
+    updatedAt: number
+}
+
+async function getPets() {
+    const res = await fetch(`${import.meta.env.API_BASE_URL}/api/v1/pets/${user.userID}`)
+    const data = await res.json()
+    return data.data
+}
+
+async function getAppointments() {
+    const res = await fetch(`${import.meta.env.API_BASE_URL}/api/v1/appointments`)
+    const data = await res.json()
+    return data.data
+}
+const token = Astro.cookies.get("access_token")?.value
+const user = getUserFromJWT(token)
+
+const PETS: Pet[] = await getPets()
+const APPOINTMENTS: Appointment[] = await getAppointments()
+---
+
+<main class="max-w-7xl mx-auto flex flex-col mt-6">
+    <div class="flex justify-between items-center w-7xl">
+        <span>
+            <h1 class="text-3xl font-bold">Mis citas</h1>
+            <p>Gestiona las citas veterinarias de tus mascotas</p>
+        </span>
+        <button onclick="createDate.showModal()" class="btn bg-primary">Agendar</button>
+        <dialog id="createDate" class="modal">
+            <section class="modal-box">
+                <button onclick="createDate.close()" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                <h3 class="text-lg font-bold mb-6">Crear cita</h3>
+                <form id="dateForm" class="flex flex-col gap-2">
+                    <Input id="date" type="date" placeholder="Fecha"/>
+                    <Input id="consultation" type="text" placeholder="Consulta"/>
+                    <Input id="place" type="text" placeholder="Lugar"/>
+                    <Input id="observations" type="text" placeholder="Observaciones"/>
+                    <SelectField name="pet">
+                        <option value="" disabled selected>Selecciona tu mascota</option>
+                        {PETS?.map((pet: Pet) => (
+                            <option value={pet.pet.petID}>{pet.pet.name}</option>
+                        ))}
+                    </SelectField>
+                    <FormButton id="submit">Enviar</FormButton>
+                </form>
+            </section>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
+    </div>
+    <section class="flex flex-col h-full mt-6">
+        {APPOINTMENTS 
+            ? <div class="flex flex-col gap-4">
+                <h1 class="text-2xl mb-3">Citas</h1>
+                {APPOINTMENTS.map((appointment) => (
+                <button class="cursor-pointer card bg-base-200 p-4" title="Opciones de cita">
+                    <section class="w-2xl text-left">
+                        <div>
+                            <p>Mascota: {appointment.petID}</p>
+                            <p>{appointment.date}</p>
+                            <p>{appointment.userID}</p>
+                            <p>{appointment.consultation}</p>
+                        </div>
+                        <div class="absolute right-10 top-5">
+                            <p class="bg-green-400 rounded-full shadow-sm p-2">{appointment.status}</p>
+                        </div>
+                    </section>
+                </button>
+                ))}
+            </div>
+        : <h1 class="text-2xl">Aún no tienes citas registradas</h1>}
+    </section>
+</main>
+
+<style is:inline>
+  .loading-icon {
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+    import Swal from "sweetalert2"
+
+    const dateForm = document.getElementById("dateForm") as HTMLFormElement
+    const submitButton = document.getElementById("submit") as HTMLButtonElement
+    const loadingSVG = `
+        <svg
+            class="loading-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3a9 9 0 1 0 9 9"></path>
+        </svg>
+    `
+
+    dateForm?.addEventListener("submit", async (e) => {
+        e.preventDefault()
+
+        submitButton.disabled = true,
+        submitButton.innerHTML = loadingSVG
+
+        const data = {
+            date: dateForm.date.value,
+            consultation: dateForm.consultation.value,
+            place: dateForm.place.value,
+            observations: dateForm.observations.value,
+            petID: dateForm.pet.value
+        }
+
+        try {
+            const res = await fetch('/api/create-date', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+
+            if(res.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cita agendada!',
+                    theme: 'auto'
+                }).then(() => window.location.href = "/home")
+            } else {
+                const resJson = await res.json()
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error...',
+                    text: resJson.message,
+                    theme: 'auto'
+                })
+            }
+        } catch (error) {
+            console.error(error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor.',
+                theme: 'auto'
+            })
+        }   finally {
+            submitButton.disabled = false
+            submitButton.innerHTML = "Enviar"
+        }
+    })
+</script>

@@ -1,0 +1,163 @@
+---
+import LOGO from "@/assets/LOGO.svg"
+import { getUserFromJWT } from "@/utils/getUserFromJWT"
+import Input from "@/components/Input.astro"
+import FormButton from "@/components/FormButton.astro"
+
+interface Pet {
+    users_pets: {
+        users_petsID: number,
+        userID: string,
+        petID: number,
+        status: string,
+        createdAt: number,
+        updatedAt: number
+    },
+    pet: {
+        petID: number,
+        name: string,
+        last_name: string,
+        weight: number,
+        bithday: string,
+        breedID: number,
+        genre: string,
+        color: string,
+        status: string,
+        createdAt: number,
+        updatedAt: number
+    }
+}
+
+const token = Astro.cookies.get("access_token")?.value
+const user = getUserFromJWT(token)
+async function getPets() {
+    const res = await fetch(`${import.meta.env.API_BASE_URL}/api/v1/pets/${user.userID}`)
+    const data = await res.json()
+    return data.data
+}
+
+const PETS: Pet[] = await getPets()
+---
+
+<main class="max-w-7xl mx-auto flex flex-col justify-center gap-4">
+    <section class="grid grid-cols-3 items-center justify-center gap-2">
+        {PETS?.map((pet: Pet) => (
+            <article class="card bg-base-200 shadow-sm p-4">
+                <figure>
+                    <img src={LOGO.src} width="128" height="128" alt="Foto de la mascota">
+                </figure>
+                <section class="card-body">
+                    <h2 class="card-title">{pet.pet.name}</h2>
+                    <p>{pet.pet.genre == "FEMALE" ? "Hembra" : "Macho"}</p>
+                    <p>{pet.pet.color}</p>
+                    <p>{pet.pet.weight} kg</p>
+                </section>
+            </article>
+        ))}
+        <button onclick="addPet.showModal()" title="Agregar mascota" class="card cursor-pointer bg-base-200 hover:bg-base-300 transition-colors shadow-sm p-4 rounded-full w-34 h-34 flex justify-center">
+            <figure class="avatar avatar-placeholder">
+                <p class="text-4xl">+</p>
+            </figure>
+        </button>
+        <dialog id="addPet" class="modal">
+            <section class="modal-box">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                <h3 class="text-lg font-bold mb-6">Agregar mascota</h3>
+                <form method="POST" id="add-pet-form" class="flex flex-col gap-3">
+                    <Input id="petName" type="text" placeholder="Nombre"/>
+                    <Input id="last_name" type="text" placeholder="Apellido"/>
+                    <Input id="weight" type="number" placeholder="Peso"/>
+                    <Input id="birthday" type="date" placeholder="Fecha de nacimiento"/>
+                    <Input id="genre" type="text" placeholder="Genero"/>
+                    <Input id="breedID" type="number" placeholder="Raza"/>
+                    <Input id="color" type="text" placeholder="Color"/>
+                    <FormButton id="submit">
+                        Guardar
+                    </FormButton>
+                </form>
+            </section>
+        </dialog>
+    </section>
+</main>
+
+<style is:inline>
+  .loading-icon {
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+    import Swal from "sweetalert2"
+    const form = document.getElementById("add-pet-form") as HTMLFormElement
+    const submitButton = document.getElementById("submit") as HTMLButtonElement
+    const loadingSVG = `
+        <svg
+            class="loading-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3a9 9 0 1 0 9 9"></path>
+        </svg>
+    `
+
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault()
+
+        submitButton.disabled = true
+        submitButton.innerHTML = loadingSVG
+
+        const data = {
+            name: form.petName.value,
+            last_name: form.last_name.value,
+            weight: form.weight.value, 
+            birthday: form.birthday.value, 
+            breedID: form.breedID.value, 
+            genre: form.genre.value, 
+            color: form.color.value
+        }
+
+        try {
+            const res = await fetch('/api/add-pet', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+
+            const resData = await res.json()
+
+            if (res.ok) {
+                window.location.reload()
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error...',
+                    text: resData.message,
+                    theme: 'auto'
+                })
+            }
+        } catch (error: any) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error...',
+                text: error.message,
+                theme: 'auto'
+            })
+        } finally {
+            submitButton.disabled = false
+            submitButton.innerHTML = "Guardar"
+        }
+    })
+</script>

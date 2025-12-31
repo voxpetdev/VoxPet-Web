@@ -7,5 +7,9 @@ if (!cookie) return Astro.redirect('/')
 ---
 
 <Layout title="Mis mascotas">
-    <PetsSection/>
+    <PetsSection server:defer>
+        <div class="w-full h-full grid place-items-center" slot="fallback">
+            <h1 class="text-4xl font-semibold">Cargando...</h1>
+        </div>
+    </PetsSection>
 </Layout>

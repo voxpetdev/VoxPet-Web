@@ -2,28 +2,7 @@
 // Aqui se ponen los atributos que va a llevar el componente
 interface Props {
     id: string,
-    type: 'button'
-		| 'checkbox'
-		| 'color'
-		| 'date'
-		| 'datetime-local'
-		| 'email'
-		| 'file'
-		| 'hidden'
-		| 'image'
-		| 'month'
-		| 'number'
-		| 'password'
-		| 'radio'
-		| 'range'
-		| 'reset'
-		| 'search'
-		| 'submit'
-		| 'tel'
-		| 'text'
-		| 'time'
-		| 'url'
-		| 'week',
+    type: astroHTML.JSX.InputHTMLAttributes["type"],
     placeholder: string,
     required?: boolean
 }

@@ -103,13 +103,13 @@ const APPOINTMENTS: Appointment[] = await getAppointments()
                             <p>{appointment.consultation}</p>
                         </div>
                         <div class="absolute right-10 top-5">
-                            <p class="bg-green-400 rounded-full shadow-sm p-2">{appointment.status}</p>
+                            <p class="bg-green-400 rounded-full shadow-sm py-2 px-3 font-bold">{appointment.status}</p>
                         </div>
                     </section>
                 </button>
                 ))}
             </div>
-        : <h1 class="text-2xl">Aún no tienes citas registradas</h1>}
+            : <h1 class="text-2xl">Aún no tienes citas registradas</h1>}
     </section>
 </main>
 

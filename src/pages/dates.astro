@@ -4,5 +4,9 @@ import DatesSection from "@/sections/DatesSection.astro"
 ---
 
 <Layout title="VoxPet - Citas">
-    <DatesSection/>
+    <DatesSection server:defer>
+        <div class="w-full h-full grid place-items-center" slot="fallback">
+            <h1 class="text-4xl font-semibold">Cargando...</h1>
+        </div>
+    </DatesSection>
 </Layout>

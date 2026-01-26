@@ -39,8 +39,8 @@ async function getPets() {
 const PETS: Pet[] = await getPets()
 ---
 
-<main class="max-w-7xl mx-auto flex flex-col justify-center gap-4">
-    <section class="grid grid-cols-3 items-center justify-center gap-2">
+<main class="max-w-7xl mx-auto flex flex-col justify-center gap-4 p-4">
+    <section class="grid md:grid-cols-3 lg:grid-cols-6 items-center justify-center gap-2">
         {PETS?.map((pet: Pet) => (
             <article class="card bg-base-200 shadow-sm p-4">
                 <figure>
@@ -61,7 +61,7 @@ const PETS: Pet[] = await getPets()
         </button>
         <dialog id="addPet" class="modal">
             <section class="modal-box">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button></form>
                 <h3 class="text-lg font-bold mb-6">Agregar mascota</h3>
                 <form method="POST" id="add-pet-form" class="flex flex-col gap-3">
                     <Input id="petName" type="text" placeholder="Nombre"/>
@@ -76,48 +76,21 @@ const PETS: Pet[] = await getPets()
                     </FormButton>
                 </form>
             </section>
+            <form method="dialog" class="modal-backdrop"><button>close</button></form>
         </dialog>
     </section>
 </main>
-
-<style is:inline>
-  .loading-icon {
-    animation: spin 1s linear infinite;
-    vertical-align: middle;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-</style>
 
 <script>
     import Swal from "sweetalert2"
     const form = document.getElementById("add-pet-form") as HTMLFormElement
     const submitButton = document.getElementById("submit") as HTMLButtonElement
-    const loadingSVG = `
-        <svg
-            class="loading-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M12 3a9 9 0 1 0 9 9"></path>
-        </svg>
-    `
 
     form?.addEventListener("submit", async (e) => {
         e.preventDefault()
 
         submitButton.disabled = true
-        submitButton.innerHTML = loadingSVG
+        submitButton.innerHTML = '<span class="loading loading-spinner"></span>'
 
         const data = {
             name: form.petName.value,

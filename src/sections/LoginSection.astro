@@ -57,45 +57,16 @@ import GoogleIcon from "@/icons/GoogleIcon.astro";
   </form>
 </section>
 
-<style is:inline>
-  .loading-icon {
-    animation: spin 1s linear infinite;
-    vertical-align: middle;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-</style>
-
 <script>
   import Swal from "sweetalert2"
   const form = document.getElementById("loginForm") as HTMLFormElement
   const submitButton = document.getElementById("submit") as HTMLButtonElement
 
-  const loadingSVG = `
-    <svg
-        class="loading-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M12 3a9 9 0 1 0 9 9"></path>
-    </svg>
-    `
-
     form?.addEventListener('submit', async (e) => {
       e.preventDefault()
 
       submitButton.disabled = true
-      submitButton.innerHTML = loadingSVG
+      submitButton.innerHTML = '<span class="loading loading-spinner"></span>'
 
       const data = {
         username: form.email.value,
